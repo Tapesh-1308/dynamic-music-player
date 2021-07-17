@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>Music Player | Tapesh</title>
+</head>
+<body>
+    <div class="main">
+        <div class="musicContainer">
+            <h2 id="title">Beats</h2>
+            <h3 id="artist">alan walker</h3>
+            <div class="imgeBox">
+                <img src="img/beats-1.jpg" alt="">
+            </div>
+            <audio src="music/beats-1.mp3"></audio>
+
+            <!-- progress bar  -->
+            <div class="progressBar" id="progressCont">
+                <div class="progressDurMeter">
+                    <div id="currTime">
+                        0:00
+                    </div>
+                    <div id="duration">
+                        2:53
+                    </div>
+                </div>
+                <div class="progressDiv" id="progressDiv">
+                    <div class="progress" id="progress"></div>
+                </div>
+            </div>
+
+            <!-- controls  -->
+            <div class="musicControls">
+                <i class="fas fa-step-backward" id="prev" title="Previous"></i> 
+                <i class="fas fa-play" id="play" title="Play"></i> 
+                <i class="fas fa-step-forward" id="next" title="Next"></i>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const music = document.querySelector("audio");
+        const img = document.querySelector('img');
+        const play = document.getElementById('play');
+        const title = document.getElementById('title');
+        const artist = document.getElementById('artist');
+        const prev = document.getElementById('prev');
+        const next = document.getElementById('next');
+        let progress = document.getElementById('progress');
+        let musicDur = document.getElementById('duration');
+        const currTime = document.getElementById('currTime');
+        const progressDiv = document.getElementById('progressDiv');
+
+
+        const songs = [
+            {
+                name: "beats-1",
+                title: "beats",
+                artist: "alan walker"
+            },
+            {
+                name: "beats-2",
+                title: "sappheiros",
+                artist: "Aurora"
+            },
+            {
+                name: "beats-3",
+                title: "walking firiri",
+                artist: "gorkhali takma"
+            }
+
+        ]
+
+        let isPLaying =  false;
+
+        // play music
+        const playMusic = () => {
+            isPLaying = true;
+            music.play();
+            play.classList.replace('fa-play', 'fa-pause');
+            img.classList.add('anime');
+        };
+
+        //pause music
+        const pauseMusic = () => {
+            isPLaying = false;
+            music.pause();
+            play.classList.replace('fa-pause', 'fa-play');
+            img.classList.remove('anime');
+        };
+
+        play.addEventListener('click', () => {
+            isPLaying ? pauseMusic() : playMusic();
+        });
+
+        // changing music data
+
+        const loadSong = (songs) => {
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            music.src = `music/${songs.name}.mp3`;
+            img.src = `img/${songs.name}.jpg`;
+        }
+        let songIndex = 0;
+    
+        const nextSongs = () => {
+            songIndex = (songIndex + 1) % songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+        }
+        const prevSongs = () => {
+            songIndex = (songIndex - 1 + songs.length) % songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+        };
+
+        // progress
+        music.addEventListener('timeupdate', (event) => {
+            const {currentTime, duration} = event.srcElement;
+            let progressTime = (currentTime / duration ) * 100;
+            progress.style.width = `${progressTime}%`;
+
+            // updating music time 
+            let minDur = Math.floor(duration / 60);
+            let secDur = Math.floor(duration % 60);
+            let totalDur = `${minDur}:${secDur}`;
+
+            if(duration){
+                musicDur.textContent = totalDur;
+            }
+
+        
+            // updating music time 
+            let minCurrTime = Math.floor(currentTime / 60);
+            let secCurrTime = Math.floor(currentTime % 60);
+            
+            if(secCurrTime < 10){
+                secCurrTime = `0${secCurrTime}`;
+            }
+            
+            let totalCurrDur = `${minCurrTime}:${secCurrTime}`;
+            currTime.textContent = totalCurrDur;
+
+        });
+
+        // progress click functionality
+        progressDiv.addEventListener('click', (event) => {
+            const { duration } = music;
+            let moveProgress = (event.offsetX / event.srcElement.clientWidth) * duration;
+
+            music.currentTime = moveProgress;
+        })
+
+
+
+        music.addEventListener('ended', nextSongs)
+
+
+        next.addEventListener('click', nextSongs);
+        prev.addEventListener('click', prevSongs);
+        
+
+    </script>
+</body>
+</html>

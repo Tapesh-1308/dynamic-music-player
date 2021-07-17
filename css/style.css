@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300&display=swap');
+
+*, *::after, x::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%;
+    font-family: 'Jost', sans-serif;
+}
+
+.main{
+    width: 100vw;
+    height: 100vh;
+    background-color: #131212;
+    display: grid;
+    place-items: center;
+}
+
+.musicContainer{
+    width: 35rem;
+    height: 50rem;
+    background-color: rgb(34, 34, 36);
+    border-radius: 2rem;
+    box-shadow: 0 1.2rem 3rem 0.5rem rgba(0,0,0,0.2);
+    padding: 3rem;
+    text-align: center;
+}
+
+.musicContainer #title{
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    word-spacing: 0.5rem;
+    color: #d8d8d8;
+    margin: 2rem 0 0.5rem 0;
+    font-size: 2.5rem;
+    font-weight: 500;
+    text-shadow: 0 0.3rem 0.5rem rgba(255, 255, 255, 0.3);
+}
+
+.musicContainer #artist{
+    color: #b3b3b3;
+    text-transform: capitalize;
+    letter-spacing: 0.1rem;
+    font-size: 2rem;
+    margin-bottom: 4rem;
+    font-weight: 300;
+}
+
+.imgeBox{
+    width: 20rem;
+    height: 20rem;
+    margin: auto;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0.2rem 5rem 0.5rem rgba(255, 255, 255, 0.4);
+}
+
+.musicControls{
+    width: 20rem;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    margin-top: 1rem;
+    align-items: center;
+}
+
+.musicControls .fas{
+    color: #ffffff;
+    font-size: 2rem;
+    cursor: pointer;
+    filter: drop-shadow(0 1.2rem 3em 0.5rem rgba(255, 255, 255, 0.4));
+}
+
+.musicControls .fas:hover{
+    color: rgb(109, 109, 109);
+}
+
+.musicControls #play{
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-color: rgb(0, 0, 0);
+    color: #f0f0f0;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.musicControls #play:hover{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    box-shadow: 0 1rem 2rem 0.2rem rgba(255, 255, 255, 0.4);
+}
+
+.anime{
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+/* progress style  */
+
+.progressBar{
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.progressDiv{
+    width: 100%;
+    height: 0.5rem;
+    box-shadow: 0 1px 2px rgba(255, 255, 255, 0.07), 02px 4px rgba(255, 255, 255, 0.07),
+    0 4px 8px rgba(255, 255, 255, 0.07),  0 8px 16px rgba(255, 255, 255, 0.07), 0 16px 32px rgba(255, 255, 255, 0.07), 0 32px 64px rgba(255, 255, 255, 0.07);
+    border-radius: 4rem;
+    position: relative;
+    margin-top: 0.5rem;
+    transition: width 0.2s linear;
+    -moz-transition: width 0.2s linear;
+    -o-transition: width 0.2s linear;
+    -webkit-transition: width 0.2s linear;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.progress{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4rem;
+    transition: width 0.2s linear;
+    -moz-transition: width 0.2s linear;
+    -o-transition:width 0.2s linear;
+    -webkit-transition: width 0.2s linear;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.progressDurMeter{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    color: white;
+}
+
+@media (max-width : 400px) {
+    .musicContainer{
+        width: auto;
+    }
+
+    .imgeBox{
+        width: 15rem;
+        height: 15rem;
+    }
+}
+
